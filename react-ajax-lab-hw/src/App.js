@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from './Login/Login';
-import WeatherContainer from './WeatherContainer/WeatherContainer'
+import WeatherData from './WeatherData/WeatherData'
 import './App.css';
 
 class App extends Component {
@@ -9,8 +9,21 @@ class App extends Component {
 
     this.state = {
       logged: false,
-      username: ''
+      username: '',
+      weather: []
     }
+  }
+  getWeather = async () => {
+    try {
+      const weatherApi = await fetch('http://api.apixu.com/v1/current.json?key=b08cd1024d5a4116ad113505183110&q=Denver');
+      const weatherJson = await weatherApi.json();
+      return weatherJson;
+    } catch (err) {
+      return err
+    }
+  }
+  componentDidMount(){
+    this.getWeather().then((data) => this.setState({weather: data}));
   }
   handleLogin = (username, isLoggedIn) => {
 
@@ -22,7 +35,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.logged ? <WeatherContainer username={this.state.username}/> : <Login handleLogin={this.handleLogin} />}
+        {this.state.logged ? <WeatherData weather={this.state.weather}/> : <Login handleLogin={this.handleLogin} />}
       </div>
     );
   }
