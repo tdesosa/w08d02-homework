@@ -2,20 +2,14 @@ import React from 'react';
 
 const WeatherData = (props) => {
 
-  const weatherInfo = props.weather.map((weatherParam, i) => {
-      return (
-        <li key={i}>
-          Current Weather: {weatherParam.cloud} 
-        </li>
-        )
-    });
-
   return (
       <div>
-        <h2>Weather Data</h2>
+        <h2>Current WeatherData For Denver, CO, US:</h2>
         <ul>
-          {weatherInfo}
-        </ul>
+          <li>Temp: {props.weather && props.weather.main && props.weather.main.temp}</li>
+          <li>Humidity: {props.weather && props.weather.main && props.weather.main.humidity}</li>
+          <li>Pressure: {props.weather && props.weather.main && props.weather.main.pressure}</li>
+        </ul>      
       </div>
     )
 

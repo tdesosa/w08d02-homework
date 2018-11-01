@@ -15,8 +15,9 @@ class App extends Component {
   }
   getWeather = async () => {
     try {
-      const weatherApi = await fetch('http://api.apixu.com/v1/current.json?key=b08cd1024d5a4116ad113505183110&q=Denver');
+      const weatherApi = await fetch('http://api.openweathermap.org/data/2.5/weather?zip=80206,us&APPID=d177ecaf5436da5c14f410fb73b64b4d');
       const weatherJson = await weatherApi.json();
+      console.log(weatherJson)
       return weatherJson;
     } catch (err) {
       return err
@@ -24,7 +25,7 @@ class App extends Component {
   }
   componentDidMount(){
     this.getWeather().then((data) => this.setState({weather: data}));
-  }
+  };
   handleLogin = (username, isLoggedIn) => {
 
     this.setState({
